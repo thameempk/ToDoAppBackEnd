@@ -36,6 +36,7 @@ namespace ToDoApp.Controllers
         [Authorize]
         public ActionResult UpdateTasks(int id,[FromBody] Tasks tasks)
         {
+
             _tasks.UpdateTask(id, tasks);
             return Ok();
         }
