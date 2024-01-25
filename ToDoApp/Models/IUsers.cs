@@ -4,7 +4,7 @@ namespace ToDoApp.Models
 {
     public interface IUsers
     {
-        public void Register(Users users);
+        public void Register(RegisterData register);
         public List<Users> GetUsers();
         public Users Login(Login login);
         
@@ -43,16 +43,15 @@ namespace ToDoApp.Models
             }
         }
 
-        public void Register(Users users)
+        public void Register(RegisterData register)
         {
             
             using( SqlConnection con = new SqlConnection(ConnectionString))
             {
-                SqlCommand command = new SqlCommand("insert into Register(userName, email, password, Role) values(@userName, @email, @password, @role)", con);
-                command.Parameters.AddWithValue("@userName", users.name);
-                command.Parameters.AddWithValue("@email", users.email);
-                command.Parameters.AddWithValue("@password", users.password);
-                command.Parameters.AddWithValue("@role", users.Role);
+                SqlCommand command = new SqlCommand("insert into Register(userName, email, password) values(@userName, @email, @password)", con);
+                command.Parameters.AddWithValue("@userName", register.name);
+                command.Parameters.AddWithValue("@email", register.email);
+                command.Parameters.AddWithValue("@password", register.password);
                 con.Open();
                 command.ExecuteNonQuery();
             }

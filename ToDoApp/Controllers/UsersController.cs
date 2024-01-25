@@ -29,20 +29,20 @@ namespace ToDoApp.Controllers
 
         [HttpPost("Register")]
 
-        public ActionResult Register([FromBody ] Users users)
+        public ActionResult Register([FromBody ] RegisterData register)
         {
-            if (users == null)
+            if (register == null)
             {
                 return BadRequest();
             }
 
-            var userExist = _users.GetUsers().FirstOrDefault(s => s.email == users.email && s.password == users.password);
+            var userExist = _users.GetUsers().FirstOrDefault(s => s.email == register.email && s.password == register.password);
             if (userExist != null)
             {
                 return BadRequest("email or password already exist");
             }
 
-            _users.Register(users);
+            _users.Register(register);
             return Ok();
 
         }
